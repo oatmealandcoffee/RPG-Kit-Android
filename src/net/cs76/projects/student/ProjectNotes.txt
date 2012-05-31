@@ -1,0 +1,281 @@
+Project: RPG Kit
+Author(s): Philip Regan
+Source Code Copyright: Copyright (c) 2012 Philip Regan All Rights Reserved.
+Additional Copyright: None 							
+Source:	New source only; no adaptations.
+Requirements: Android API 7
+Notes:
+
+Types of adventures: http://www.gnomestew.com/gming-advice/gnome-stews-giant-list-of-rpg-adventure-types
+
+SQLite:
+http://developer.android.com/guide/topics/data/data-storage.html#db
+Multiple tables: http://stackoverflow.com/questions/3684678/best-practices-of-working-with-multiple-sqlite-db-tables-in-android
+
+Play process
+	Choice: Go to Quest or pass time (if at Base)
+		Go to Quest
+			Display Quest
+			Choice: Do Quest or Go to Quest
+			Do Quest
+				-> GameEngine processes Player against Quest
+				
+		Pass time
+			Apply benefits
+			
+Sample Games
+	* A Day at the Races - Autoracing
+		* Home: Garage
+			* Owns Street R-Class
+			* Money: $10,000
+			* Income: $100
+		* Store: Dealership
+			* Sells Supercar GT Class
+				* Purchase Value: $11,000
+		* Race: GT Classic
+			* Requirement: Supercar GT Class
+			* Cost: $2,000
+			* Prize: $20,000
+		* Race: R Classic
+			* Requirement: Street R-Class
+			* Cost: $1,000
+			* Prize: Supercar GT Class
+	* Back at the Office
+		* Home: House
+			* Money: $100
+			* Income: $1
+		* Store: The Donut Store
+			* Sells donuts
+				* Purchase Value: $50
+		* Store: Le Donument
+			* Raffles donuts for the price of a coffee, no exceptions
+			* Coffee Cost: $25
+			* Donut Cost: $200
+			* Prize: Donuts
+		* Office: Innotech
+			* Requirement: Donuts
+			* Prize: Not have to come in on a Saturday
+		
+Roadmap:			
+> Database operations
+	> Table creation
+	> Child object creation
+		> Pair db controller to activity
+> Activities
+	> Game Selection
+	> Edit
+		X Game Edit Home (List selection)
+			X1 Game Edit (Data Entry)
+		X2 Player Edit Home (Data Entry)
+			* Equipment Selection (List Selection)
+		=5 Task Edit Home (List Selection; class abstraction)
+			=6 Task Edit (Data Entry)
+				=7 Task Linking (List Selection)
+		* Equipment Edit Home (List Selection
+			* Equipment Edit (Data Entry)
+	X3 Play
+		X4 Location Home
+			X Destination Linking & Selection
+			* Location Action (generic)
+			* Location Action (home)
+			* Location Action (store)
+* Figure out how to manage task linking
+	X (long)int arrays?
+* Helper Classes
+	X GamePlayEngine
+	
+			
+Editing operations:
+* Create
+	* Edit only
+* Retrieve
+	* Edit and Play
+* Update
+	* Edit only
+* Delete
+	* Edit only
+
+* Object
+	* Create
+		* New
+		* [Duplicate existing object]
+	* Retrieve
+		* database to temp object
+		* id, parent id, parent type
+	* Update
+		* temp object to database
+		* id, parent id, parent type
+	* Delete
+		* database only
+		* id, parent id, parent type
+		
+Task Linking:
+
+* All tasks must be linked to another task.
+* Tasks can have sibling tasks (aka "locations") and children tasks (aka "accomplishments")
+* Location linking is managed with an integer array
+	* 0->1,2
+	* 1->0,3
+	* 2->0,3
+	* 3->1,2
+* Tasks are reciprocal only when they mutually link each other. Otherwise the system 
+will have no way of knowing the player can go back
+
+Significant (e.g, crashing, unplayable) Bugs:
+* [FIXED] 1231231230
+	* Symptom: All objects placed in tables appear in the Game Selection View
+	* Check: Check to be sure all of the content is going to the correct DB.
+	* Symptom: It appears to be showing everything in the Stories table, albeit in the correct places.
+	* FIX: Was not checking gain the parent id and type
+* [FIXED] 1231390313
+	* Symptom: Clicking Play or Edit button does not trigger action (in this instance, show the name of the game selected)
+	* FIX: button was not having the Activity set as the clickListener
+* [FIXED] 1231514424
+	* Play and Edit buttons in Game Selection Layout do not appear properly. 
+	* FIX: not properly documented outside of XML tagging in layout file
+* [FIXED] 1231523334
+	* 03-15 23:32:05.630: E/Database(887): java.lang.IllegalStateException: /data/data/net.cs76.projects.student/databases/ocrpgkit.db 
+	SQLiteDatabase created and never closed
+	* 03-15 23:32:05.630: E/Database(887): 	at net.cs76.projects.student.OCDbController.<init>(OCDbController.java:208)
+	* 03-15 23:32:05.630: E/Database(887): 	at net.cs76.projects.student.OCGameInformationEditActivity$OCGameInformationController.<init>(OCGameInformationEditActivity.java:148)
+	* 03-15 23:32:05.630: E/Database(887): 	at net.cs76.projects.student.OCGameInformationEditActivity.onCreate(OCGameInformationEditActivity.java:101)
+	* FIX: Added DB opening and closing methods to OCDbController to manage db access with Activity events
+* [FIXED] 12316232828
+	* 03-16 23:26:41.903: E/AndroidRuntime(1160): java.lang.RuntimeException: Unable to start activity ComponentInfo{net.cs76.projects.student/net.cs76.projects.student.OCTaskSelectionActivity}: java.lang.RuntimeException: Your content must have a ListView whose id attribute is 'android.R.id.list'
+	* Fix: Added appropriate id to layout object
+* [FIXED] 12316235243
+	* OCGameObjectSelectionActivity only shows the first object found in all the views
+	* FIX: The statement that got the targetID was outside of the do...while loop that iterated the row
+* [FIXED] 12318142243
+	* Marked as TODO in OCDbController
+	* table tasks has no column named tasks_linked: , while compiling: INSERT INTO tasks(tasks_linked, parent_type, parent_id) VALUES(?, ?, ?);
+	* Fix: Missed space between name of column and its datatype
+* [FIXED] 12318142610
+	* NullPointerException on String targetValueStrings[] = targetValue.split( "," );
+	* FIX: Used proper Integer.parseInt command instead of incorrect Integer.getValue.
+	
+Minor (e.g., non-crashing, playable) Bugs
+* 12314121543
+	* Symptom: Game title and intro do not get refreshed immediately going back to game selection screen after editing
+	* Possible fix: Have the activity re-load content within onResume. In fact, just about everything in onCreate should be going into onResume to ensure the latest updates to all content can ve viewed immediately
+* [FIXED] 1231983104
+	* Symptom: Location about is not showing up properly, but the accomplishment's about is instead. But the title shows up correctly.
+		* Could be the way we have set up the database.
+* [FIXED] 1231983545
+	* Symptom: Do Accomplishments button does not hide when there are no objects in the linkedAccomplishments array
+* [FIXED] 123199546
+	* Symptom: Some game-level task Abouts are not appearing properly
+	* FIX: Wrong location id was being applied
+
+Change History:
+    DEVELOPMENT
+    12_03_08_01_00_000: Started source
+    12_03_08_01_00_001: Resolved main layout not being linked in default project
+    12_03_11_01_00_002: Started adding table creation statements
+    12_03_11_01_00_003: Added table creation statements
+    					Moved DB values out of R.strings and into the OCDbController 
+    					due to problem with IDs being sent to SQLHelper constructor 
+    					and not the string itself
+    12_03_11_01_00_004:	Added OCGameSelectionActivity, kicking off the first of the 
+    					editing activities
+    12_03_12_01_00_005:	Updated OCGameSelectionActivity to handle views from db queries
+    					Added OCGameEntryDbController class
+    					Added initial code for database creation and loading of sample game
+    12_03_12_01_01_000:	Fixed bug where ListView was not being found due to proper ID being set in the layout
+    12_03_12_01_01_001:	Fixed bug where OnItemClickListener was being cast improperly
+    12_03_12_01_01_002:	Fixed bug where there were two parent_id columns in each DB
+    					Added function to nuke the db from orbit while testing initialization
+    12_03_12_01_01_003:	Fixed bug where player addition is failing because values were being applied to the wrong object
+    12_03_12_01_01_004:	Updated code to compile properly on the laptop.
+    12_03_12_01_01_005:	Fixed BUG 1231231230
+    12_03_12_01_01_006:	Updated populateDefaults to accept a marker to help ensure we are working with the correct data while coding
+   	12_03_12_01_01_007:	Fixed bug 1231390313
+   	12_03_12_01_01_008:	Updated and cleaned up OCGameSelectionActivity so that the button push results in the new activity starting
+   	12_03_12_01_02_000:	Started game component editing
+   						Added game components editing layout
+   	12_03_12_01_02_001:	Added game title being set to title of game component menu
+   	12_03_12_01_02_002:	Added game component selection capturing;
+   	12_03_12_01_02_003:	Added game component editing activity and transition;
+   	12_03_12_01_02_004:	Added player information editing activity and transition;
+   	12_03_14_01_02_005:	Added OCEquipmentSelectionActivity, OCGameObjectSelectionActivity, OCGamePlayActivity, OCTaskSelectionActivity
+   	12_03_14_01_02_006:	Fixed activity transition crashes that came with addition of stubs in v1.2.5
+   	12_03_14_01_02_007:	Started Game Information Editing Activity interface
+   						Added layouts for game object selection and list items
+   	12_03_15_01_02_008:	Updated game selection layout to better show the play and edit buttons. But it's still crap because the layout editor isn't clear on what is needed to make these work side-by-side. Scholarly pursuit of leanring new OSes aside, Google deserves every tromping by Apple they get for this dreck of a development environment.
+    12_03_15_01_02_009:	Updated OCGameComponentEdit class name to OCGameComponentEditActivity
+    12_03_15_01_02_010:	Updated OCGameComponentEditActivity with interface and content binding: CRUD is next
+    12_03_15_01_02_011:	Started OCGameComponentEditActivity CRUD
+    12_03_15_01_02_012:	OCGameComponentEditActivity successfully retrieves game information
+    12_03_15_01_02_013:	Fixed bug 1231514424
+    12_03_15_01_02_014:	Updated OCGameComponentEditActivity to have Save and Cancel buttons
+    12_03_15_01_02_015:	Updated OCGameComponentEditActivity and OCDbController with UNTESTED update code
+    12_03_16_01_02_016:	Fixed 1231523334
+    12_03_16_01_02_017: Updated OCGameComponentEditActivity to save title and about stories
+    12_03_16_01_02_018:	Started OCPlayerInformationEdit including renaming to OCPlayerInformationEditActivity
+    12_03_16_01_02_019:	Fixed a couple crashes with buttons being bound when null due to bad IDs.
+    12_03_16_01_02_020:	Linked found player data to interface, thus completing OCPlayerInformationEditActivity
+    12_03_16_01_02_021:	Started OCGameObjectSelectionActivity
+    12_03_16_01_02_022:	Fixed minor startup bugs in OCGameObjectSelectionActivity, shows tasks, but only first (see bug 12316235243)
+    12_03_16_01_02_022:	Fixed 12316235243
+    12_03_17_01_02_023: Updated OCGameObjectSelectionActivity.onClick() and other sundry goods that just work.
+    12_03_17_01_02_024: Fixed crash where OCGameObjectPayload was not being set as a tag to the correct object
+    12_03_17_01_03_000:	Started GamePlay portion of app
+    					Updated OCGamePlayActivity and associated layout to OCGamePlayLocationActivity
+    12_03_17_01_03_001:	Updated layout file
+    					Updated strings file
+    					Updated OCGamePlayActivity brainstorm
+    12_03_17_01_03_002:	Added basic workflows to OCGamePlayLocationActivity
+    12_03_17_01_03_003:	Updated OCDbController to include accomplishments for each of the samples
+    12_03_17_01_03_004:	Added OCGameEngine class
+    12_03_17_01_03_005:	Added far too much code between commits to OCGamePlayLocation
+    12_03_17_01_03_006:	Fixed a few stupid (due to my carelessness) crashes related to playing a task.
+    12_03_17_01_03_007:	Game play navigation started, but it is not grabbing all locations and can only go to task[1]
+    12_03_17_01_03_008:	Game play navigation complete
+    12_03_19_01_03_009:	Fixed 1231983104
+    					Fixed 1231983545
+    12_03_19_01_03_010:	Updated formatting of accomplishments list
+    					Updated GamePlay to capture Do Accomplishments
+    12_03_19_01_04_000:	Added Readme.txt per the spec
+    12_03_19_01_04_001:	Updated RPGKitActivity to always push to the game selection screen
+    					Cleaned up and expanded comments
+    12_03_19_01_04_002:	Updated OCGameComponentsEditActivity so that data is loaded in onResume() and not onCreate() to ensure we always see the latest edits
+    					Updated OCGameInformationEditActivity so that data is loaded in onResume() and not onCreate() to ensure we always see the latest edits
+    					Updated OCGameObjectSelectionActivity so that data is loaded in onResume() and not onCreate() to ensure we always see the latest edits
+    					Updated OCGamePlayLocationActivity so that data is loaded in onResume() and not onCreate() to ensure we always see the latest edits
+    					Updated OCGameSelectionActivity so that data is loaded in onResume() and not onCreate() to ensure we always see the latest edits
+    					Updated OCPlayerInformationEditActivity so that data is loaded in onResume() and not onCreate() to ensure we always see the latest edits
+    					
+SCRATCH
+
+From http://www.4feets.com/2010/06/elo-rating-calculation-for-games-from-chess/
+// Returns an array of two doubles: [0] is the new rating for player A, [1] for player B  
+//  
+// Parameters:  
+//   status: 0 = draw, 1 = player A won, 2 = player B won  
+//   RA, RB: the players points before the game  
+private double[] calcElo(int status, double RA, double RB) {  
+    double QA = Math.pow(10, RA/400);  
+    double QB = Math.pow(10, RB/400);  
+  
+    // set the desired k factor  
+    double k = 32;  
+  
+    double EA = QA / (QA + QB);  
+    double EB = QB / (QA + QB);           
+  
+    double SA = 0.5; // draw  
+    double SB = 0.5; // draw  
+    if (status == 1) {  
+        SA = 1;  
+        SB = 0;  
+    } else if (status == 2) {  
+        SA = 0;  
+        SB = 1;  
+    }  
+  
+    double[] res = new double[2];  
+    res[0] = RA + (k * (SA - EA));  
+    res[1] = RB + (k * (SB - EB));  
+    return res;  
+}  
+    
