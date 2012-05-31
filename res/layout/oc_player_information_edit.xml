@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+ * Philip Regan
+ * http://www.oatmealandcoffee.com
+ -->
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/oc_table_player_information"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" 
+    android:stretchColumns="0,1" >
+    
+    <!-- Player Name Label and TextEdit -->
+    	
+        <TableRow
+            android:id="@+id/oc_table_row_player_name_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/oc_textview_player_name_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/PLAYER_INFORMATION_TITLE" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/oc_table_row_player_name_edittext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <EditText
+                android:id="@+id/oc_edittext_player_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/FPO_NAME"
+                android:inputType="text" />
+
+        </TableRow>
+        
+        <!-- Player About Label and TextEdit -->
+    	
+        <TableRow
+            android:id="@+id/oc_table_row_player_about_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/oc_textview_player_about_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/PLAYER_INFORMATION_ABOUT" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/oc_table_row_player_about_edittext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <EditText
+                android:id="@+id/oc_edittext_player_about"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/FPO_BIO"
+                android:inputType="textMultiLine" />
+
+        </TableRow>
+        
+        <!-- Equipment Buttons -->
+        
+        <TableRow
+            android:id="@+id/oc_table_row_equipment"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent" >
+                
+                <Button
+                    android:id="@+id/oc_button_player_equipment"
+                    android:layout_weight="1"
+                    android:layout_width="0px"
+                	android:layout_height="wrap_content"
+                    android:text="@string/PLAYER_INFORMATION_EQUIPMENT" />
+            
+        </TableRow>
+    
+		<!-- Save and Cancel Buttons -->
+        
+        <TableRow
+            android:id="@+id/oc_table_row_actions"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent" >
+                
+                <Button
+                    android:id="@+id/oc_button_player_info_save"
+                    android:layout_weight="1"
+                    android:layout_width="0px"
+                	android:layout_height="wrap_content"
+                    android:text="@string/EDIT_SAVE" />
+
+                <Button
+                    android:id="@+id/oc_button_player_info_cancel"
+                    android:layout_weight="1"
+                    android:layout_width="0px"
+                	android:layout_height="wrap_content"
+                    android:text="@string/EDIT_CANCEL" />
+            
+        </TableRow>
+
+            <requestFocus />
+            
+</TableLayout>

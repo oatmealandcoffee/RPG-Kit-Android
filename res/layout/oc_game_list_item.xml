@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+ * Philip Regan
+ * http://www.oatmealandcoffee.com
+ -->
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/TableLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/oc_game_select_list_item_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/FPO_TITLE"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        </TableRow>
+        
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/oc_game_select_list_item_intro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/FPO_INTRO" />
+            
+        </TableRow>
+        
+        <TableRow
+            android:id="@+id/tableRow3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
+
+            <Button
+                android:id="@+id/oc_game_select_list_item_play"
+                android:layout_weight="1"
+                android:layout_width="0px"
+              	android:layout_height="wrap_content"
+                android:text="@string/HOME_GAME_ACTION_PLAY" />
+            
+            <Button
+                android:id="@+id/oc_game_select_list_item_edit"
+                android:layout_weight="1"
+                android:layout_width="0px"
+               	android:layout_height="wrap_content"
+                android:text="@string/HOME_GAME_ACTION_EDIT" />
+            
+        </TableRow>
+
+</TableLayout>

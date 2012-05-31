@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+ * Philip Regan
+ * http://www.oatmealandcoffee.com
+ -->
+<resources>
+
+    <string name="hello">RPG Kit: Play In Your Creation</string>
+    <string name="app_name">RPG Kit</string>
+    
+    <!--  FPO STRINGS -->
+    
+    <string name="FPO_TITLE">Title</string>
+    <string name="FPO_INTRO">Introduction</string>
+    <string name="FPO_NAME">Tyler Durden, Marla Singer</string>
+    <string name="FPO_BIO">Uses soap.</string>
+    
+    <string name="FPO_TIME_UNIT">Hour, Day, Week, Month</string>
+    <string name="FPO_MONEY_UNIT">Dollar, Credit, Gold Pieces</string>
+    
+    <!--  INTENT PLAYLOAD STRINGS -->
+    
+    <string name="INTENT_KEY_PLAY">Play</string>
+    <string name="INTENT_KEY_EDIT">Edit</string>
+        
+    <!-- EDITOR LABELS -->
+    
+    <string name="EDIT_SAVE">Save</string>
+    <string name="EDIT_CANCEL">Cancel</string>
+    
+    <!-- Used in OCGameObjectSelectionActivity -->
+    <string name="EDIT_FPO">Change</string>
+    
+    <string name="EDIT_LINK">Add</string>
+    <string name="EDIT_UNLINK">Remove</string>
+    <string name="EDIT_UPDATE">Edit</string>
+    <string name="EDIT_DELETE">Delete</string>
+    
+    <string name="HOME_GAME_ACTION_EDIT">Edit</string>
+    <string name="HOME_GAME_ACTION_PLAY">Play</string>
+    
+    <string name="GAME_COMPONENT_EDIT_GAME">Game Information</string>
+    <string name="GAME_COMPONENT_EDIT_PLAYER">Player</string>
+    <string name="GAME_COMPONENT_EDIT_TASKS">Tasks</string>
+    <string name="GAME_COMPONENT_EDIT_EQUIPMENT">Equipment</string>
+    
+    <string name="GAME_INFORMATION_TITLE">Game Title</string>
+    <string name="GAME_INFORMATION_INTRO">Game Introduction</string>
+    <string name="GAME_INFORMATION_TIME_UNIT">Game Time Unit</string>
+    <string name="GAME_INFORMATION_MONEY_UNIT">Game Money Unit</string>
+    
+    <string name="PLAYER_INFORMATION_TITLE">Player Name</string>
+    <string name="PLAYER_INFORMATION_ABOUT">Player Bio</string>
+    <string name="PLAYER_INFORMATION_EQUIPMENT">Select Player Equipment</string>
+    
+    <!-- Game Play Location Activity Labels -->
+    <string name="GAMEPLAY_LOCATION_ANNOUNCEMENT">You are now in</string>
+    <string name="GAMEPLAY_LOCATION_ACCOMPLISHMENTS">Accomplishments</string>
+    <string name="GAMEPLAY_LOCATION_DO_ACCOMPLISHMENTS">Do Accomplishments</string>
+    <string name="GAMEPLAY_LOCATION_LINKED_LOCATIONS">Linked Locations</string>
+
+</resources>

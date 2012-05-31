@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+ * Philip Regan
+ * http://www.oatmealandcoffee.com
+ -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/oc_linearlayout_gplocation"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+    
+    <TextView
+        android:id="@+id/oc_textview_gplocation_heading_announcement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/GAMEPLAY_LOCATION_ANNOUNCEMENT"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/oc_textview_gplocation_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/FPO_TITLE"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/oc_textview_gplocation_intro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/FPO_INTRO" />
+
+    <TextView
+        android:id="@+id/oc_textview_gplocation_heading_accomplishments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/GAMEPLAY_LOCATION_ACCOMPLISHMENTS"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TableLayout
+        android:id="@+id/oc_tablelayout_gplocation_accomplishments"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+		
+        <!-- Rows TK based on child tasks -->
+        
+    </TableLayout>
+
+    <Button
+        android:id="@+id/oc_button_gplocation_do_accomplishments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/GAMEPLAY_LOCATION_DO_ACCOMPLISHMENTS" />
+
+    <TextView
+        android:id="@+id/oc_textview_gplocation_heading_linked_locations"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/GAMEPLAY_LOCATION_LINKED_LOCATIONS"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    
+    <TableLayout
+        android:id="@+id/oc_tablelayout_gplocation_linked_locations"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+		
+        <!-- Rows TK based on sibling tasks -->
+        
+    </TableLayout>
+
+</LinearLayout>
